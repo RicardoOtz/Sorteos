@@ -140,7 +140,7 @@ img {
 }
 
 @media (min-width: 768px) {
-    .contenido-principal {
+    .contenido-principal, .entrada__contenido {
         text-align: center;
         
 
