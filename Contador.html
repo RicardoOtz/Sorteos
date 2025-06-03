@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuenta Regresiva para la Boda</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #fff0f5, #ffe4e1);
+      color: #800080;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 40px;
+    }
+
+    .contador-container {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .cuadro {
+      background-color: white;
+      color: #800080;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(128, 0, 128, 0.3);
+      font-size: 2.5em;
+      min-width: 90px;
+      transition: transform 0.3s ease;
+    }
+
+    .label {
+      font-size: 0.4em;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    .separador {
+      font-size: 2.5em;
+      color: #800080;
+    }
+
+    .segundos.bounce {
+      animation: bounceDown 0.4s;
+    }
+
+    @keyframes bounceDown {
+      0%   { transform: translateY(-10px); }
+      50%  { transform: translateY(8px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .cuadro {
+        font-size: 1.5em;
+        min-width: 60px;
+        padding: 15px;
+      }
+
+      .separador {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 ¡Cuenta Regresiva para Nuestra Boda! 💖</h1>
+
+  <div class="contador-container" id="contador">
+    <!-- Aquí se llenará con JavaScript -->
+  </div>
+
+  <script>
+    const fechaBoda = new Date("2025-12-20T00:00:00");
+
+    function crearElementoTiempo(valor, etiqueta, claseExtra = "") {
+      return `
+        <div class="cuadro ${claseExtra}">
+          ${valor.toString().padStart(2, '0')}
+          <div class="label">${etiqueta}</div>
+        </div>
+      `;
+    }
+
+    function actualizarContador() {
+      const ahora = new Date();
+      const diferencia = fechaBoda - ahora;
+
+      const contenedor = document.getElementById("contador");
+
+      if (diferencia <= 0) {
+        contenedor.innerHTML = "<h2>¡Hoy es el gran día! 💍🎉</h2>";
+        return;
+      }
+
+      const segundosTotales = Math.floor(diferencia / 1000);
+      const dias = Math.floor(segundosTotales / (60 * 60 * 24));
+      const horas = Math.floor((segundosTotales % (60 * 60 * 24)) / (60 * 60));
+      const minutos = Math.floor((segundosTotales % (60 * 60)) / 60);
+      const segundos = segundosTotales % 60;
+
+      // Estructura con separadores
+      contenedor.innerHTML = `
+        ${crearElementoTiempo(dias, "Días")}
+        <div class="separador">:</div>
+        ${crearElementoTiempo(horas, "Horas")}
+        <div class="separador">:</div>
+        ${crearElementoTiempo(minutos, "Minutos")}
+        <div class="separador">:</div>
+        ${crearElementoTiempo(segundos, "Segundos", "segundos")}
+      `;
+
+      // Animación para los segundos
+      const segundosElemento = document.querySelector(".segundos");
+      segundosElemento.classList.add("bounce");
+      setTimeout(() => {
+        segundosElemento.classList.remove("bounce");
+      }, 400);
+    }
+
+    actualizarContador();
+    setInterval(actualizarContador, 1000);
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tarjetas BBVA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+
+    .card {
+      background: linear-gradient(to bottom, #0070c9, #0096f0);
+      color: white;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 350px;
+      margin: 20px auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .card-santander {
+      background: linear-gradient(to bottom, #df0900, #ff0000);
+      color: white;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 350px;
+      margin: 20px auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .card-number {
+      font-family: monospace;
+      font-size: 20px;
+      letter-spacing: 6px;
+      margin: 20px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card-number:hover {
+      text-decoration: underline;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    .copied-msg {
+      position: absolute;
+      bottom: 10px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card-santander">
+    <div class="card-header">
+      <span>Santander</span>
+      <span>Santander</span>
+    </div>
+    <div><span class="label">TARJETA:</span></div>
+    <div class="card-number" onclick="copiarTexto(this)">5579 0701 5420 4153</div>
+    <div><span class="label">Beneficiario:</span><br><br>Castalia Pérez</div>
+    <div class="copied-msg">Copiado</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span>Klar</span>
+      <span>Klar</span>
+    </div>
+    <div><span class="label">TARJETA:</span></div>
+    <div class="card-number" onclick="copiarTexto(this)">661610006699734578</div>
+    <div><span class="label">Beneficiario:</span><br><br>Castalia Pérez</div>
+    <div class="copied-msg">Copiado</div>
+  </div>
+
+  
+
+  <script>
+    function copiarTexto(elemento) {
+      const texto = elemento.innerText;
+      navigator.clipboard.writeText(texto).then(() => {
+        const msg = elemento.parentElement.querySelector('.copied-msg');
+        msg.style.display = 'inline-block';
+        setTimeout(() => {
+          msg.style.display = 'none';
+        }, 1000);
+      });
+    }
+  </script>
+
+</body>
+</html>
